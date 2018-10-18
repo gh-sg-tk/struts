@@ -20,5 +20,9 @@ package org.superbiz.struts;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class FindUserForm extends ActionSupport {
+    private UserService userService;
 
+    public FindUserForm(UserService userService) {
+        this.userService = userService;
+    }
 }

@@ -17,15 +17,27 @@
  */
 package org.superbiz.struts;
 
+import org.springframework.stereotype.Component;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.transaction.Transactional;
 import java.util.Properties;
 
+@Component
 public class FindUser {
 
     private int id;
     private String errorMessage;
     private User user;
+    private UserService userService;
+
+    public FindUser(int id, String errorMessage, User user, UserService userService) {
+        this.id = id;
+        this.errorMessage = errorMessage;
+        this.user = user;
+        this.userService = userService;
+    }
 
     public User getUser() {
         return user;
@@ -51,6 +63,7 @@ public class FindUser {
         this.id = id;
     }
 
+    @Transactional
     public String execute() {
 
         try {

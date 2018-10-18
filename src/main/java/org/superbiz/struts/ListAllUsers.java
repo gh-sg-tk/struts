@@ -17,16 +17,28 @@
  */
 package org.superbiz.struts;
 
+import org.springframework.stereotype.Component;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Properties;
 
+@Component
 public class ListAllUsers {
 
-    private int id;
+    private long id;
     private String errorMessage;
     private List<User> users;
+    private UserService userService;
+
+    public ListAllUsers(int id, String errorMessage, List<User> users, UserService userService) {
+        this.id = id;
+        this.errorMessage = errorMessage;
+        this.users = users;
+        this.userService = userService;
+    }
 
     public List<User> getUsers() {
         return users;
@@ -44,7 +56,7 @@ public class ListAllUsers {
         this.errorMessage = errorMessage;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -52,6 +64,7 @@ public class ListAllUsers {
         this.id = id;
     }
 
+    @Transactional
     public String execute() {
 
         try {
